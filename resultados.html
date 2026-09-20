@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZportSone - Marcadores V3 (Fútbol, NFL & F1)</title>
+
+    <!-- Bootstrap 5 CSS & FontAwesome Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --neon-green: #00ffaa;
+            --neon-blue: #00bfff;
+            --neon-red: #ff3366;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar estilo Cristal */
+        .navbar-custom {
+            background: rgba(6, 9, 19, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 1.6rem;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--neon-green) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Encabezado con efecto neón */
+        .page-header {
+            padding: 60px 0 30px 0;
+            background: radial-gradient(ellipse at top, rgba(0, 191, 255, 0.12), transparent 65%);
+        }
+
+        /* Botones de filtro por disciplina */
+        .btn-filter-v3 {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border-radius: 30px;
+            padding: 10px 24px;
+            margin: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-filter-v3:hover, .btn-filter-v3.active {
+            background: var(--neon-green);
+            color: #000;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.4);
+            font-weight: 800;
+        }
+
+        .btn-filter-v3.nfl-active {
+            background: var(--neon-blue) !important;
+            color: #000 !important;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.4) !important;
+            border-color: var(--neon-blue) !important;
+        }
+
+        .btn-filter-v3.f1-active {
+            background: var(--neon-red) !important;
+            color: #fff !important;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.4) !important;
+            border-color: var(--neon-red) !important;
+        }
+
+        /* Tarjeta de Marcador Deportivo */
+        .match-card-v3 {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .match-card-v3:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .border-futbol { border-left: 4px solid var(--neon-green); }
+        .border-nfl { border-left: 4px solid var(--neon-blue); }
+        .border-f1 { border-left: 4px solid var(--neon-red); }
+
+        .score-display {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-block;
+        }
+
+        footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: #03050a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú de Navegación Responsivo -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-bolt me-2"></i>ZPORTSONE
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto text-center py-3 py-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fa-solid fa-house me-1"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="resultados.html"><i class="fa-solid fa-chart-simple me-1"></i> Marcadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="academia.html"><i class="fa-solid fa-graduation-cap me-1"></i> Academia</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header de Resultados -->
+    <section class="page-header text-center">
+        <div class="container">
+            <h1 class="display-4 fw-black mb-2">Marcadores y <span style="color: var(--neon-blue)">Tiempos Rápidos</span></h1>
+            <p class="text-secondary mb-4">Sigue la acción en tiempo real del Fútbol, la NFL y la Fórmula 1.</p>
+
+            <!-- Filtros Especializados -->
+            <div class="d-flex flex-wrap justify-content-center gap-2" id="grupoFiltros">
+                <button class="btn btn-filter-v3 active" onclick="filtrarV3('todos', this)">
+                    <i class="fa-solid fa-layer-group me-1"></i> Todos los Deportes
+                </button>
+                <button class="btn btn-filter-v3" onclick="filtrarV3('futbol', this)">
+                    <i class="fa-solid fa-futbol me-1 text-success"></i> Fútbol
+                </button>
+                <button class="btn btn-filter-v3" onclick="filtrarV3('nfl', this)">
+                    <i class="fa-solid fa-football me-1 text-info"></i> NFL
+                </button>
+                <button class="btn btn-filter-v3" onclick="filtrarV3('f1', this)">
+                    <i class="fa-solid fa-flag-checkered me-1 text-danger"></i> Fórmula 1
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Dinámico de Marcadores -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4" id="contenedorResultadosV3">
+                <!-- Generado dinámicamente con resultados.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center text-secondary">
+        <div class="container">
+            <small>&copy; 2026 ZportSone - Cobertura exclusiva de Fútbol, NFL y F1.</small>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="resultados.js"></script>
+</body>
+</html>
